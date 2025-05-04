@@ -2,6 +2,7 @@ import { Guitar } from './Guitar';
 import { Builder } from './Builder';
 import { Wood } from './Wood';
 import { Type } from './Type';
+import { GuitarSpec } from './GuitarSpec';
 
 export class Inventory {
     private guitars: Guitar[] = [];
@@ -19,7 +20,8 @@ export class Inventory {
         backWood: Wood,
         topWood: Wood
     ): void {
-        const guitar = new Guitar(serialNumber, price, builder, model, type, backWood, topWood)
+        const spec = new GuitarSpec(builder, model, type, backWood, topWood)
+        const guitar = new Guitar(serialNumber, price, spec)
         this.guitars.push(guitar);
     }
 
@@ -32,13 +34,16 @@ export class Inventory {
         return null;
     }
 
-    searchGuitar(searchGuitar: Guitar): Guitar[] | null {
+    searchGuitar(searchGuitar: GuitarSpec): Guitar[] | null {
         return this.guitars.filter((guitar) => {
-            if (searchGuitar.getBuilder() && searchGuitar.getBuilder() !== guitar.getBuilder()) return false;
-            if (searchGuitar.getModel() && searchGuitar.getModel() !== guitar.getModel()) return false;
-            if (searchGuitar.getType() && searchGuitar.getType() !== guitar.getType()) return false;
-            if (searchGuitar.getBackWood() && searchGuitar.getBackWood() !== guitar.getBackWood()) return false;
-            if (searchGuitar.getTopWood() && searchGuitar.getTopWood() !== guitar.getTopWood()) return false;
+            const spec = guitar.getSpec()
+
+            if (searchGuitar.getBuilder() && searchGuitar.getBuilder() !== spec.getBuilder()) return false;
+            if (searchGuitar.getModel() && searchGuitar.getModel() !== spec.getModel()) return false;
+            if (searchGuitar.getType() && searchGuitar.getType() !== spec.getType()) return false;
+            if (searchGuitar.getBackWood() && searchGuitar.getBackWood() !== spec.getBackWood()) return false;
+            if (searchGuitar.getTopWood() && searchGuitar.getTopWood() !== spec.getTopWood()) return false;
+            
             return true;
         })  
     }

@@ -1,4 +1,4 @@
-import { Guitar } from "./Guitar";
+import { GuitarSpec } from "./GuitarSpec";
 import { Inventory } from "./Inventory";
 import { Wood } from "./Wood";
 import { Builder } from "./Builder";
@@ -9,20 +9,22 @@ export class FindGuitar {
         const inventory = new Inventory();
         this.initializeInventory(inventory);
 
-        const whatErinLikes = new Guitar("", 0, Builder.FENDER, "", Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
+        const whatErinLikes = new GuitarSpec(Builder.FENDER, "", Type.ELECTRIC, Wood.ALDER, Wood.ALDER);
         const guitars = inventory.searchGuitar(whatErinLikes);
 
-        if (guitars) {
-            console.log("Erin, you might like these guitars:");
-            for (const guitar of guitars){
-                console.log(`\t${guitar.getBuilder()} ${guitar.getModel()} ${guitar.getType()} guitar:
-                    ${guitar.getBackWood()} back and sides,
-                    ${guitar.getTopWood()} top.
-                    You can have it for only $${guitar.getPrice()}!`);
-            }
-        } 
-        else {
+        if (!guitars || guitars?.length === 0) {
             console.log("Sorry, Erin, we have nothing for you.");
+            return
+        } 
+        
+        console.log("Erin, you might like these guitars:");
+        for (const guitar of guitars){
+            const spec = guitar.getSpec();
+
+            console.log(`\t${spec.getBuilder()} ${spec.getModel()} ${spec.getType()} guitar:
+                ${spec.getBackWood()} back and sides,
+                ${spec.getTopWood()} top.
+                You can have it for only $${guitar.getPrice()}!`);
         }
     }
 
