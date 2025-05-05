@@ -21,7 +21,7 @@ export class FindGuitar {
         for (const guitar of guitars){
             const spec = guitar.getSpec();
 
-            console.log(`\t${spec.getBuilder()} ${spec.getModel()} ${spec.getType()} guitar:
+            console.log(`\t${spec.getBuilder()} ${spec.getModel()} ${spec.getNumStrings()}-string ${spec.getType()} guitar:
                 ${spec.getBackWood()} back and sides,
                 ${spec.getTopWood()} top.
                 You can have it for only $${guitar.getPrice()}!`);
