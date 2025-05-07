@@ -8,6 +8,10 @@ export class DogDoor {
     openDoor() {
         console.log("The dog door opens.")
         this.open = true
+
+        setTimeout(() => {
+            this.closeDoor()
+        }, 5000)
     }
 
     closeDoor() {
