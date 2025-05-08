@@ -1,5 +1,8 @@
+import { Bark } from "./Bark"
+
 export class DogDoor {
     private open: boolean
+    private allowedBarks: Bark[] = []
 
     constructor() {
         this.open = false
@@ -21,5 +24,13 @@ export class DogDoor {
 
     isOpen(): boolean {
         return this.open
+    }
+
+    addAllowedBark(bark: Bark) {
+        this.allowedBarks.push(bark)
+    }
+
+    getAllowedBarks(): Bark[] {
+        return this.allowedBarks
     }
 }
